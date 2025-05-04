@@ -1,0 +1,20 @@
+# System
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.swp
+
+# VSCode / IDEs
+.vscode/
+.idea/
+
+# Python / Node (if added later)
+__pycache__/
+node_modules/
+.env
+
+# Kubernetes & Helm
+*.tgz
+charts/
+.release/
