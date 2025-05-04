@@ -1,0 +1,83 @@
+{
+    "id": null,
+    "uid": "wrk-lab-dashboard",
+    "title": "wrk Performance Dashboard",
+    "timezone": "browser",
+    "schemaVersion": 36,
+    "version": 1,
+    "refresh": "10s",
+    "panels": [
+      {
+        "type": "timeseries",
+        "title": "CPU Usage (millicores)",
+        "id": 1,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "-100"
+        },
+        "targets": [
+          {
+            "expr": "rate(container_cpu_usage_seconds_total{pod=~\"wrk.*\"}[1m]) * 1000",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "none",
+            "displayName": "mCPU"
+          },
+          "overrides": []
+        }
+      },
+      {
+        "type": "timeseries",
+        "title": "Memory Usage (MB)",
+        "id": 2,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "-100"
+        },
+        "targets": [
+          {
+            "expr": "container_memory_usage_bytes{pod=~\"wrk.*\"} / 1024 / 1024",
+            "legendFormat": "{{pod}}",
+            "refId": "A"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "megabytes"
+          },
+          "overrides": []
+        }
+      },
+      {
+        "type": "timeseries",
+        "title": "Network Traffic (Bytes/sec)",
+        "id": 3,
+        "datasource": {
+          "type": "prometheus",
+          "uid": "-100"
+        },
+        "targets": [
+          {
+            "expr": "rate(container_network_receive_bytes_total{pod=~\"wrk.*\"}[1m])",
+            "legendFormat": "in - {{pod}}",
+            "refId": "A"
+          },
+          {
+            "expr": "rate(container_network_transmit_bytes_total{pod=~\"wrk.*\"}[1m])",
+            "legendFormat": "out - {{pod}}",
+            "refId": "B"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "bytes"
+          },
+          "overrides": []
+        }
+      }
+    ]
+  }
