@@ -1,19 +1,21 @@
+---
 name: Validate Project
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Validate YAML files
-      uses: ibiqlik/action-yamllint@v3
-      with:
-        config_file: .yamllint.yml
+      - name: Validate YAML files
+        uses: ibiqlik/action-yamllint@v3
+        with:
+          config_file: .yamllint.yml
+

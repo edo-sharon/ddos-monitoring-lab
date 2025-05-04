@@ -1,16 +1,17 @@
+---
 apiVersion: batch/v1
 kind: Job
 metadata:
   name: wrk-ddos
 spec:
-  completions: 1
-  parallelism: 1
-  backoffLimit: 0
   template:
+    metadata:
+      name: wrk
     spec:
       containers:
-      - name: wrk
-        image: williamyeh/wrk
-        command: ["wrk"]
-        args: ["-t4", "-c500", "-d120s", "http://<TARGET-IP>:<PORT>/"]
+        - name: wrk
+          image: williamyeh/wrk
+          command: ["/bin/sh", "-c"]
+          args: ["wrk -t4 -c100 -d30s http://<TARGET-IP>:<PORT>"]
       restartPolicy: Never
+  backoffLimit: 1
